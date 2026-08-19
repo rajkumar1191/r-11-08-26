@@ -1,5 +1,5 @@
 import "./App.css";
-import About from './components/About'
+import About from "./components/About";
 
 const App = () => {
   const movies = [
@@ -15,16 +15,30 @@ const App = () => {
   ];
 
   const title = "React Tutorial";
+  const year = 2026;
 
-  const handleClick = () =>{
+  const handleClick = () => {
     console.log("Button clicked");
-  }
+  };
 
-  return <div>
-    <h2>{title}</h2>
-    <button onClick={handleClick}>Click</button>
-    <About title="ABCD" arr={movies} />
-  </div>;
+  const handleDataFromChild = (data) => {
+    console.log(data);
+  };
+
+  handleDataFromChild("afdsfs");
+
+  return (
+    <div>
+      <h2>{title}</h2>
+      <button onClick={handleClick}>Click</button>
+      <About
+        title="ABCD"
+        arr={movies}
+        passData={handleDataFromChild}
+        year={year}
+      />
+    </div>
+  );
 };
 
 export default App;
