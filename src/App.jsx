@@ -27,12 +27,15 @@ const App = () => {
 
   handleDataFromChild("afdsfs");
 
+  const isActive = false; 
+
   return (
     <div>
-      <h2>{title}</h2>
-      <button onClick={handleClick}>Click</button>
+      <h2 className="title">{title}</h2>
+      <button className="btn" onClick={handleClick}>Click</button>
       <About
         title="ABCD"
+        isActive={isActive}
         arr={movies}
         passData={handleDataFromChild}
         year={year}
