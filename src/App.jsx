@@ -1,8 +1,10 @@
+import { useState } from "react";
 import "./App.css";
 import About from "./components/About";
+import AddMovie from "./components/AddMovie";
 
 const App = () => {
-  const movies = [
+  let movies = [
     {
       name: "ABC",
     },
@@ -14,6 +16,8 @@ const App = () => {
     },
   ];
 
+  const [movieData, setMovieData] = useState(movies);
+
   const title = "React Tutorial";
   const year = 2026;
 
@@ -22,21 +26,23 @@ const App = () => {
   };
 
   const handleDataFromChild = (data) => {
-    console.log(data);
+    setMovieData((movieslist) => [...movieslist, data]);
+    console.log(movieData);
   };
 
-  handleDataFromChild("afdsfs");
-
-  const isActive = false; 
+  const isActive = false;
 
   return (
     <div>
       <h2 className="title">{title}</h2>
-      <button className="btn" onClick={handleClick}>Click</button>
+      <button className="btn" onClick={handleClick}>
+        Click
+      </button>
+      <AddMovie passData={handleDataFromChild} />
       <About
         title="ABCD"
         isActive={isActive}
-        arr={movies}
+        arr={movieData}
         passData={handleDataFromChild}
         year={year}
       />
