@@ -28,6 +28,7 @@ const About = ({ title, arr, passData, year, isActive }) => {
             <Movie
               key={index}
               mname={movie.name}
+              year={movie.year}
               timeStamp={passData}
               myear={year}
             />

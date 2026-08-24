@@ -2,17 +2,21 @@ import { useState } from "react";
 import "./App.css";
 import About from "./components/About";
 import AddMovie from "./components/AddMovie";
+import AddMovieByReducer from "./components/AddMovieByReducer";
 
 const App = () => {
   let movies = [
     {
       name: "ABC",
+      year: 2026
     },
     {
       name: "ABCD",
+      year: 2026
     },
     {
       name: "ABCDE",
+      year: 2026
     },
   ];
 
@@ -39,6 +43,7 @@ const App = () => {
         Click
       </button>
       <AddMovie passData={handleDataFromChild} />
+      <AddMovieByReducer passData={handleDataFromChild} />
       <About
         title="ABCD"
         isActive={isActive}
