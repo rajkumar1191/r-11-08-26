@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./../App.css";
 const AddMovie = ({ passData }) => {
   const [movieName, setMovieName] = useState("");
@@ -12,6 +12,30 @@ const AddMovie = ({ passData }) => {
     passData({ name: movieName });
     setMovieName("");
   };
+
+  useEffect(() => {
+    console.log("Inside useEffect");
+  }, [movieName]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      console.log(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  // useEffect -> unconditionally, conditional (initial & dependent)
+
+  /*
+
+  useEffect(()=>{})
+
+  */
 
   return (
     <div>
