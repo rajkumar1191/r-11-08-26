@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./../App.css";
 const AddMovie = ({ passData }) => {
   const [movieName, setMovieName] = useState("");
-
+  console.log("add movie component");
   const handleInputChange = (e) => {
     console.log(e.target.value);
     setMovieName(e.target.value);

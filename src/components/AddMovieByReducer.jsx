@@ -41,6 +41,7 @@ const movieReducer = (state, action) => {
 
 const AddMovieByReducer = ({ passData }) => {
   const [state, dispatch] = useReducer(movieReducer, initialState);
+  console.log("add movie by reducer component");
 
   const { values, errors } = state;
 
@@ -64,7 +65,12 @@ const AddMovieByReducer = ({ passData }) => {
       return;
     }
 
-    passData({ name: values.movieName, year: values.year });
+    const submitData = {
+      name: values.movieName,
+      year: values.year,
+      id: new Date().getTime(),
+    };
+    passData(submitData);
     dispatch({
       type: "RESET_FORM",
     });

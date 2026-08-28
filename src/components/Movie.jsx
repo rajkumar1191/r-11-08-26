@@ -2,7 +2,9 @@ import MovieDetail from "./MovieDetail";
 import "./../App.css";
 import styles from "./../App.module.css";
 
-const Movie = ({ mname, timeStamp, year }) => {
+const Movie = ({ mname, timeStamp, year, id }) => {
+  console.log("movie component");
+
   const cardWrapper = {
     display: "flex",
     flexDirection: "column",
@@ -14,15 +16,15 @@ const Movie = ({ mname, timeStamp, year }) => {
     minWidth: "200px"
   };
 
-  const handleClick = () => {
-    timeStamp(`${name} ${Date.now()}`);
+  const handleClick = (id) => {
+    timeStamp(id);
   };
 
   return (
     <div style={cardWrapper}>
       <MovieDetail name={mname} year={year} />
-      <button className="btn" onClick={handleClick}>Click</button>
-      <button className={styles.btn} onClick={handleClick}>Click</button>
+      <button className="btn" onClick={()=>handleClick(id)}>Click</button>
+      <button className={styles.btn} onClick={()=>handleClick(id)}>Click</button>
     </div>
   );
 };
