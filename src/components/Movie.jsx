@@ -3,7 +3,7 @@ import "./../App.css";
 import styles from "./../App.module.css";
 
 const Movie = ({ mname, timeStamp, year, id }) => {
-  console.log("movie component");
+  // console.log("movie component");
 
   const cardWrapper = {
     display: "flex",

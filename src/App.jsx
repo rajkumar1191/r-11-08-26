@@ -4,7 +4,8 @@ import About from "./components/About";
 import AddMovie from "./components/AddMovie";
 import AddMovieByReducer from "./components/AddMovieByReducer";
 
-import axios from "axios";
+// import axios from "axios";
+import { addMovie, getMovies } from "./services/movie.service";
 
 const App = () => {
   let movies = [
@@ -62,22 +63,49 @@ const App = () => {
     loadMovies();
   }, []);
 
+  // useEffect(() => {
+  //   const loadMovies = async () => {
+  //     const response = await axios.get(
+  //       "https://jsonplaceholder.typicode.com/users",
+  //     );
+
+  //     const movies = response.data.map(({ id, name }) => ({
+  //       id: id,
+  //       name: name,
+  //       year: 2025,
+  //     }));
+  //     console.log(movies);
+  //     setMovieData(movies);
+  //   };
+  //   loadMovies();
+  // }, []);
+
   useEffect(() => {
     const loadMovies = async () => {
-      const response = await axios.get(
-        "https://jsonplaceholder.typicode.com/users",
-      );
-
-      const movies = response.data.map(({ id, name }) => ({
-        id: id,
-        name: name,
-        year: 2025,
-      }));
-      console.log(movies);
-      setMovieData(movies);
+      try {
+        const response = await getMovies();
+        const movies = response.data.map(({ id, name }) => ({
+          id: id,
+          name: name,
+          year: 2025,
+        }));
+        console.log(movies);
+        setMovieData(movies);
+      } catch (error) {
+        console.log(error);
+      }
     };
     loadMovies();
   }, []);
+
+  const addMovies = async (movie) => {
+    try {
+      const response = await addMovie(movie);
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleClick = () => {
     setMovieTitle("");
@@ -86,6 +114,7 @@ const App = () => {
 
   const handleDataFromChild = (data) => {
     setMovieData((movieslist) => [...movieslist, data]);
+    addMovies(data);
     console.log(movieData);
   };
 
