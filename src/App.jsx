@@ -6,6 +6,9 @@ import AddMovieByReducer from "./components/AddMovieByReducer";
 
 // import axios from "axios";
 import { addMovie, getMovies } from "./services/movie.service";
+import { Route, Routes } from "react-router-dom";
+import Home from "./components/Home";
+import Nav from "./components/Nav";
 
 const App = () => {
   let movies = [
@@ -29,7 +32,6 @@ const App = () => {
   const [movieData, setMovieData] = useState(movies);
   const [movieTitle, setMovieTitle] = useState("");
 
-  const title = "React Tutorial";
   const year = 2026;
 
   useEffect(() => {
@@ -107,11 +109,6 @@ const App = () => {
     }
   };
 
-  const handleClick = () => {
-    setMovieTitle("");
-    console.log("Button clicked");
-  };
-
   const handleDataFromChild = (data) => {
     setMovieData((movieslist) => [...movieslist, data]);
     addMovies(data);
@@ -126,19 +123,34 @@ const App = () => {
 
   return (
     <div>
-      <h2 className="title">{title}</h2>
-      <button className="btn" onClick={handleClick}>
-        Click
-      </button>
-      <AddMovie passData={handleDataFromChild} />
-      <AddMovieByReducer passData={handleDataFromChild} />
-      <About
-        title={movieTitle ?? "ABCD"}
-        isActive={isActive}
-        arr={movieData}
-        passData={deleteMovie}
-        year={year}
-      />
+      <Nav />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route
+          path="/add-movie"
+          element={<AddMovie passData={handleDataFromChild} />}
+        />
+        <Route
+          path="/add-movie/:id"
+          element={<AddMovie passData={handleDataFromChild} />}
+        />
+        <Route
+          path="/add-movie-by-reducer"
+          element={<AddMovieByReducer passData={handleDataFromChild} />}
+        />
+        <Route
+          path="/about"
+          element={
+            <About
+              title={movieTitle ?? "ABCD"}
+              isActive={isActive}
+              arr={movieData}
+              passData={deleteMovie}
+              year={year}
+            />
+          }
+        />
+      </Routes>
     </div>
   );
 };

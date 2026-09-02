@@ -1,7 +1,16 @@
 import { useEffect, useState } from "react";
 import "./../App.css";
+import { useNavigate, useParams } from "react-router-dom";
 const AddMovie = ({ passData }) => {
+  
   const [movieName, setMovieName] = useState("");
+
+  const navigate = useNavigate();
+
+  const {id} = useParams()
+
+  console.log("Params", id);
+
   console.log("add movie component");
   const handleInputChange = (e) => {
     console.log(e.target.value);
@@ -11,6 +20,7 @@ const AddMovie = ({ passData }) => {
   const handleSubmit = () => {
     passData({ name: movieName });
     setMovieName("");
+    navigate("/");
   };
 
   useEffect(() => {
