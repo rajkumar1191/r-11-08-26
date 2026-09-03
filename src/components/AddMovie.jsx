@@ -1,15 +1,20 @@
 import { useEffect, useState } from "react";
 import "./../App.css";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 const AddMovie = ({ passData }) => {
-  
   const [movieName, setMovieName] = useState("");
 
   const navigate = useNavigate();
 
-  const {id} = useParams()
+  const { name } = useParams();
+  const [query, setQuery] = useSearchParams();
 
-  console.log("Params", id);
+
+
+  console.log("Params", name);
+  console.log("SearchParams", query.get("name"));
+  console.log("SearchParams", query.get("loc"));
+  console.log("SearchParams", query.get("year"));
 
   console.log("add movie component");
   const handleInputChange = (e) => {

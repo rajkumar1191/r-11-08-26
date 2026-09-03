@@ -1,6 +1,7 @@
 // import React from "react";
 import { useMemo, useState } from "react";
 import Movie from "./Movie";
+import { Link, Outlet } from "react-router-dom";
 
 const About = (props) => {
   const { title, arr, passData, year, isActive } = props;
@@ -17,13 +18,6 @@ const About = (props) => {
 
   //useMemo, useCallback
 
-  const filteredMovies = useMemo(() => {
-    console.log("filtering");
-    return arr.filter((movie) =>
-      movie?.name?.toLowerCase().includes(search.toLowerCase()),
-    );
-  }, [search, arr]);
-
   return (
     <>
       <h1
@@ -35,50 +29,22 @@ const About = (props) => {
       >
         About
       </h1>
-      <h4>{title}</h4>
-      <input
-        placeholder="Search"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
-      <div style={containerWrapper}>
-        <h3>Filtered Result</h3>
-        <br />
-        {filteredMovies.length > 0 &&
-          filteredMovies.map((movie, id) => {
-            return (
-              <Movie
-                key={id}
-                mname={movie.name}
-                year={movie.year}
-                timeStamp={passData}
-                myear={year}
-                id={movie.id}
-              />
-            );
-          })}
-        <br />
 
-        {filteredMovies.length == 0 && search.length > 0 && (
-          <p>No Result Found</p>
-        )}
-        <br />
-        <h3>Non-filtered Data</h3>
-
-        {!search &&
-          arr.map((movie, index) => {
-            return (
-              <Movie
-                key={index}
-                mname={movie.name}
-                year={movie.year}
-                timeStamp={passData}
-                myear={year}
-                id={movie.id}
-              />
-            );
-          })}
+      <div style={{ display: "flex" }}>
+        <div>
+          <input
+            placeholder="Search"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <Link to='/about/filtered-result'>List Movies</Link>
+          {/* <Link to='/about/m'>List Movies</Link> */}
+        </div>
+        <div>
+          <Outlet />
+        </div>
       </div>
+      <h4>{title}</h4>
     </>
   );
 };

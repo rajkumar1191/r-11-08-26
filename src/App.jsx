@@ -9,6 +9,9 @@ import { addMovie, getMovies } from "./services/movie.service";
 import { Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
 import Nav from "./components/Nav";
+import MovieData from "./components/MovieData";
+import MovieList from "./components/MovieList";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
   let movies = [
@@ -131,13 +134,22 @@ const App = () => {
           element={<AddMovie passData={handleDataFromChild} />}
         />
         <Route
-          path="/add-movie/:id"
-          element={<AddMovie passData={handleDataFromChild} />}
+          path="/add-movie/:id/:name/:title"
+          element={
+            <ProtectedRoute>
+              <AddMovie passData={handleDataFromChild} />
+            </ProtectedRoute>
+          }
         />
         <Route
           path="/add-movie-by-reducer"
-          element={<AddMovieByReducer passData={handleDataFromChild} />}
+          element={
+            <ProtectedRoute>
+              <AddMovieByReducer passData={handleDataFromChild} />
+            </ProtectedRoute>
+          }
         />
+        {/* <Route path="/movie-data/:name/:year" element={<MovieData />} /> */}
         <Route
           path="/about"
           element={
@@ -149,7 +161,16 @@ const App = () => {
               year={year}
             />
           }
-        />
+        >
+          <Route
+            path="filtered-result"
+            element={<MovieList arr={movieData} />}
+          />
+          <Route
+            path="filtered-result/movie-data/:name/:year"
+            element={<MovieData />}
+          />
+        </Route>
       </Routes>
     </div>
   );

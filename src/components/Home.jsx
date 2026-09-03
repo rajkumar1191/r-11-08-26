@@ -3,6 +3,7 @@ const Home = () => {
 
   const handleClick = () => {
     console.log("Button clicked");
+    localStorage.setItem("token1", "fasdfsdgfsdfg");
   };
 
   return (
