@@ -1,5 +1,7 @@
-import { useReducer } from "react";
+import { useContext, useReducer } from "react";
 import "./../App.css";
+import MovieContext from "../context/MovieContext";
+import { useNavigate } from "react-router-dom";
 
 const initialState = {
   values: {
@@ -39,8 +41,12 @@ const movieReducer = (state, action) => {
   }
 };
 
-const AddMovieByReducer = ({ passData }) => {
+const AddMovieByReducer = () => {
   const [state, dispatch] = useReducer(movieReducer, initialState);
+  const { addMovie } = useContext(MovieContext);
+
+  const navigate = useNavigate();
+
   console.log("add movie by reducer component");
 
   const { values, errors } = state;
@@ -70,10 +76,11 @@ const AddMovieByReducer = ({ passData }) => {
       year: values.year,
       id: new Date().getTime(),
     };
-    passData(submitData);
+    addMovie(submitData);
     dispatch({
       type: "RESET_FORM",
     });
+    navigate("/about/filtered-result");
   };
 
   const validateForm = () => {

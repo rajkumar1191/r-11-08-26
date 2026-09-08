@@ -2,9 +2,13 @@ import MovieDetail from "./MovieDetail";
 import "./../App.css";
 // import styles from "./../App.module.css";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import MovieContext from "../context/MovieContext";
 
-const Movie = ({ mname, timeStamp, year, id }) => {
+const Movie = ({ mname, year, id }) => {
   // console.log("movie component");
+
+  const { deleteMovie } = useContext(MovieContext);
 
   const cardWrapper = {
     display: "flex",
@@ -18,7 +22,7 @@ const Movie = ({ mname, timeStamp, year, id }) => {
   };
 
   const handleClick = (id) => {
-    timeStamp(id);
+    deleteMovie(id);
   };
 
   return (

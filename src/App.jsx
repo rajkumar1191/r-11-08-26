@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useCallback, useState, useEffect, useContext } from "react";
 import "./App.css";
 import About from "./components/About";
 import AddMovie from "./components/AddMovie";
@@ -12,9 +12,10 @@ import Nav from "./components/Nav";
 import MovieData from "./components/MovieData";
 import MovieList from "./components/MovieList";
 import ProtectedRoute from "./components/ProtectedRoute";
+import MovieContext from "./context/MovieContext";
 
 const App = () => {
-  let movies = [
+  let movies1 = [
     {
       id: 1,
       name: "ABC",
@@ -32,7 +33,7 @@ const App = () => {
     },
   ];
 
-  const [movieData, setMovieData] = useState(movies);
+  const [movieData, setMovieData] = useState(movies1);
   const [movieTitle, setMovieTitle] = useState("");
 
   const year = 2026;
@@ -164,7 +165,7 @@ const App = () => {
         >
           <Route
             path="filtered-result"
-            element={<MovieList arr={movieData} />}
+            element={<MovieList />}
           />
           <Route
             path="filtered-result/movie-data/:name/:year"

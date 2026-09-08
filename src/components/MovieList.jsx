@@ -1,9 +1,13 @@
 // import React from "react";
-import { useMemo, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import Movie from "./Movie";
+import MovieContext from "../context/MovieContext";
 
 const MovieList = (props) => {
-  const { arr, year } = props;
+
+  const {movies} = useContext(MovieContext)
+
+  const { year } = props;
   const [search, setSearch] = useState("");
   console.log("about component");
 
@@ -19,10 +23,10 @@ const MovieList = (props) => {
 
   const filteredMovies = useMemo(() => {
     console.log("filtering");
-    return arr.filter((movie) =>
+    return movies.filter((movie) =>
       movie?.name?.toLowerCase().includes(search.toLowerCase()),
     );
-  }, [search, arr]);
+  }, [search, movies]);
 
   return (
     <>
