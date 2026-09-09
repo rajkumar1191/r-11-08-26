@@ -4,11 +4,15 @@ import "./../App.css";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import MovieContext from "../context/MovieContext";
+import { useDispatch } from "react-redux";
+import { deleteMovieFn } from "../redux/slices/movieSlice";
 
 const Movie = ({ mname, year, id }) => {
   // console.log("movie component");
 
   const { deleteMovie } = useContext(MovieContext);
+
+  const dispatch = useDispatch();
 
   const cardWrapper = {
     display: "flex",
@@ -23,6 +27,7 @@ const Movie = ({ mname, year, id }) => {
 
   const handleClick = (id) => {
     deleteMovie(id);
+    dispatch(deleteMovieFn(id))
   };
 
   return (

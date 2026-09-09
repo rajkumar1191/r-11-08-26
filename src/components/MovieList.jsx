@@ -1,11 +1,18 @@
 // import React from "react";
-import { useContext, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import Movie from "./Movie";
 import MovieContext from "../context/MovieContext";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchMovies } from "../redux/slices/movieSlice";
 
 const MovieList = (props) => {
+  const { movies } = useContext(MovieContext);
 
-  const {movies} = useContext(MovieContext)
+  const movieList = useSelector((state) => state.movies);
+
+  const dispatch = useDispatch();
+
+  console.log("movie list", movieList);
 
   const { year } = props;
   const [search, setSearch] = useState("");
@@ -18,6 +25,10 @@ const MovieList = (props) => {
     gap: "1rem",
     justifyContent: "center",
   };
+
+  useEffect(() => {
+    dispatch(fetchMovies());
+  }, []);
 
   //useMemo, useCallback
 

@@ -2,6 +2,9 @@ import { useContext, useReducer } from "react";
 import "./../App.css";
 import MovieContext from "../context/MovieContext";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+import { addMovieFn } from "../redux/slices/movieSlice";
 
 const initialState = {
   values: {
@@ -42,8 +45,10 @@ const movieReducer = (state, action) => {
 };
 
 const AddMovieByReducer = () => {
-  const [state, dispatch] = useReducer(movieReducer, initialState);
+  const [state, dispatchFn] = useReducer(movieReducer, initialState);
   const { addMovie } = useContext(MovieContext);
+
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -52,7 +57,7 @@ const AddMovieByReducer = () => {
   const { values, errors } = state;
 
   const handleChange = (e) => {
-    dispatch({
+    dispatchFn({
       type: "CHANGE_FIELD",
       field: e.target.name,
       value: e.target.value,
@@ -63,7 +68,7 @@ const AddMovieByReducer = () => {
     const validationErrors = validateForm();
 
     if (Object.keys(validationErrors).length > 0) {
-      dispatch({
+      dispatchFn({
         type: "SET_ERRORS",
         payload: validationErrors,
       });
@@ -77,7 +82,10 @@ const AddMovieByReducer = () => {
       id: new Date().getTime(),
     };
     addMovie(submitData);
-    dispatch({
+
+    dispatch(addMovieFn(submitData))
+
+    dispatchFn({
       type: "RESET_FORM",
     });
     navigate("/about/filtered-result");

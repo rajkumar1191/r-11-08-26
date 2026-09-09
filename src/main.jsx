@@ -4,14 +4,18 @@ import "./index.css";
 import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import MovieProvider from "./context/MovieProvider.jsx";
+import { Provider } from "react-redux";
+import { store } from "./redux/store.js";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowserRouter>
-      <MovieProvider>
-        <App />
-      </MovieProvider>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <MovieProvider>
+          <App />
+        </MovieProvider>
+      </BrowserRouter>
+    </Provider>
   </StrictMode>,
 );
 
