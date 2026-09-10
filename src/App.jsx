@@ -13,6 +13,9 @@ import MovieData from "./components/MovieData";
 import MovieList from "./components/MovieList";
 import ProtectedRoute from "./components/ProtectedRoute";
 import MovieContext from "./context/MovieContext";
+import Login from "./components/Login";
+import Unauthorized from "./components/Unauthorized";
+import RoleProtectedRoute from "./components/RoleProtectedRoute";
 
 const App = () => {
   let movies1 = [
@@ -130,6 +133,8 @@ const App = () => {
       <Nav />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/unauthorized" element={<Unauthorized />} />
         <Route
           path="/add-movie"
           element={<AddMovie passData={handleDataFromChild} />}
@@ -154,19 +159,18 @@ const App = () => {
         <Route
           path="/about"
           element={
-            <About
-              title={movieTitle ?? "ABCD"}
-              isActive={isActive}
-              arr={movieData}
-              passData={deleteMovie}
-              year={year}
-            />
+            <RoleProtectedRoute role={"admin"}>
+              <About
+                title={movieTitle ?? "ABCD"}
+                isActive={isActive}
+                arr={movieData}
+                passData={deleteMovie}
+                year={year}
+              />
+            </RoleProtectedRoute>
           }
         >
-          <Route
-            path="filtered-result"
-            element={<MovieList />}
-          />
+          <Route path="filtered-result" element={<MovieList />} />
           <Route
             path="filtered-result/movie-data/:name/:year"
             element={<MovieData />}

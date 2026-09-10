@@ -6,14 +6,17 @@ import { BrowserRouter } from "react-router-dom";
 import MovieProvider from "./context/MovieProvider.jsx";
 import { Provider } from "react-redux";
 import { store } from "./redux/store.js";
+import { AuthProvider } from "./context/AuthProvider.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <MovieProvider>
-          <App />
-        </MovieProvider>
+        <AuthProvider>
+          <MovieProvider>
+            <App />
+          </MovieProvider>
+        </AuthProvider>
       </BrowserRouter>
     </Provider>
   </StrictMode>,

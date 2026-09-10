@@ -8,14 +8,16 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("token");
+    const user = JSON.parse(sessionStorage.getItem("user"));
 
     // setTimeout(() => {
     //   localStorage.setItem("token", "abcdef");
     // }, 15000);
 
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    console.log("user", user);
+    if (user && user.token) {
+      console.log("user", user.token);
+      config.headers.Authorization = `Bearer ${user.token}`;
     }
 
     console.log("request sent");
