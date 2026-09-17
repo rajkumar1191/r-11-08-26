@@ -4,15 +4,18 @@ import Movie from "./Movie";
 import MovieContext from "../context/MovieContext";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMovies } from "../redux/slices/movieSlice";
+import useMovies from "../hooks/useMovies";
+import withLoader from "../hoc/withLoader";
 
 const MovieList = (props) => {
-  const { movies } = useContext(MovieContext);
+  // const { movies } = useContext(MovieContext);
 
-  const movieList = useSelector((state) => state.movies);
+  // const movieList = useSelector((state) => state.movies);
+  const { movies, loading } = useMovies();
 
   const dispatch = useDispatch();
 
-  console.log("movie list", movieList);
+  console.log("movie list", movies);
 
   const { year } = props;
   const [search, setSearch] = useState("");
@@ -26,9 +29,9 @@ const MovieList = (props) => {
     justifyContent: "center",
   };
 
-  useEffect(() => {
-    dispatch(fetchMovies());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchMovies());
+  // }, []);
 
   //useMemo, useCallback
 
@@ -41,6 +44,7 @@ const MovieList = (props) => {
 
   return (
     <>
+      {/* {loading && <h3>Loading...</h3>} */}
       <div style={containerWrapper}>
         <h3>Filtered Result</h3>
         <br />
@@ -69,7 +73,7 @@ const MovieList = (props) => {
   );
 };
 
-export default MovieList;
+export default withLoader(MovieList);
 
 //props drilling
 

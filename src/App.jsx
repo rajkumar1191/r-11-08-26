@@ -1,8 +1,15 @@
-import React, { useCallback, useState, useEffect, useContext } from "react";
+import React, {
+  useCallback,
+  useState,
+  useEffect,
+  useContext,
+  lazy,
+  Suspense,
+} from "react";
 import "./App.css";
-import About from "./components/About";
+// import About from "./components/About";
 import AddMovie from "./components/AddMovie";
-import AddMovieByReducer from "./components/AddMovieByReducer";
+// import AddMovieByReducer from "./components/AddMovieByReducer";
 
 // import axios from "axios";
 import { addMovie, getMovies } from "./services/movie.service";
@@ -16,6 +23,14 @@ import MovieContext from "./context/MovieContext";
 import Login from "./components/Login";
 import Unauthorized from "./components/Unauthorized";
 import RoleProtectedRoute from "./components/RoleProtectedRoute";
+import useMovies from "./hooks/useMovies";
+import { fetchMovies } from "./redux/slices/movieSlice";
+import { useDispatch } from "react-redux";
+
+const AboutCom = lazy(() => import("./components/About"));
+const AddMovieByReducerCom = lazy(
+  () => import("./components/AddMovieByReducer"),
+);
 
 const App = () => {
   let movies1 = [
@@ -38,8 +53,11 @@ const App = () => {
 
   const [movieData, setMovieData] = useState(movies1);
   const [movieTitle, setMovieTitle] = useState("");
-
+  const { loading, error } = useMovies();
   const year = 2026;
+  const dispatch = useDispatch();
+
+  console.log("loading....", loading);
 
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/posts")
@@ -53,6 +71,7 @@ const App = () => {
 
         setMovieData(movies);
       });
+    dispatch(fetchMovies());
   }, []);
 
   useEffect(() => {
@@ -131,52 +150,57 @@ const App = () => {
   return (
     <div>
       <Nav />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/unauthorized" element={<Unauthorized />} />
-        <Route
-          path="/add-movie"
-          element={<AddMovie passData={handleDataFromChild} />}
-        />
-        <Route
-          path="/add-movie/:id/:name/:title"
-          element={
-            <ProtectedRoute>
-              <AddMovie passData={handleDataFromChild} />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/add-movie-by-reducer"
-          element={
-            <ProtectedRoute>
-              <AddMovieByReducer passData={handleDataFromChild} />
-            </ProtectedRoute>
-          }
-        />
-        {/* <Route path="/movie-data/:name/:year" element={<MovieData />} /> */}
-        <Route
-          path="/about"
-          element={
-            <RoleProtectedRoute role={"admin"}>
-              <About
-                title={movieTitle ?? "ABCD"}
-                isActive={isActive}
-                arr={movieData}
-                passData={deleteMovie}
-                year={year}
-              />
-            </RoleProtectedRoute>
-          }
-        >
-          <Route path="filtered-result" element={<MovieList />} />
+      <Suspense fallback={<h1>Loading components....</h1>}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/unauthorized" element={<Unauthorized />} />
           <Route
-            path="filtered-result/movie-data/:name/:year"
-            element={<MovieData />}
+            path="/add-movie"
+            element={<AddMovie passData={handleDataFromChild} />}
           />
-        </Route>
-      </Routes>
+          <Route
+            path="/add-movie/:id/:name/:title"
+            element={
+              <ProtectedRoute>
+                <AddMovie passData={handleDataFromChild} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/add-movie-by-reducer"
+            element={
+              <ProtectedRoute>
+                <AddMovieByReducerCom passData={handleDataFromChild} />
+              </ProtectedRoute>
+            }
+          />
+          {/* <Route path="/movie-data/:name/:year" element={<MovieData />} /> */}
+          <Route
+            path="/about"
+            element={
+              <RoleProtectedRoute role={"admin"}>
+                <AboutCom
+                  title={movieTitle ?? "ABCD"}
+                  isActive={isActive}
+                  arr={movieData}
+                  passData={deleteMovie}
+                  year={year}
+                />
+              </RoleProtectedRoute>
+            }
+          >
+            <Route
+              path="filtered-result"
+              element={<MovieList loading={loading} error={error} />}
+            />
+            <Route
+              path="filtered-result/movie-data/:name/:year"
+              element={<MovieData />}
+            />
+          </Route>
+        </Routes>
+      </Suspense>
     </div>
   );
 };

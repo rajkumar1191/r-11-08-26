@@ -1,22 +1,10 @@
-// import React from "react";
-import { useMemo, useState } from "react";
-import Movie from "./Movie";
+import { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 
 const About = (props) => {
-  const { title, arr, passData, year, isActive } = props;
+  const { title, isActive } = props;
   const [search, setSearch] = useState("");
   console.log("about component");
-
-  const containerWrapper = {
-    display: "flex",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: "1rem",
-    justifyContent: "center",
-  };
-
-  //useMemo, useCallback
 
   return (
     <>
@@ -38,7 +26,6 @@ const About = (props) => {
             onChange={(e) => setSearch(e.target.value)}
           />
           <Link to='/about/filtered-result'>List Movies</Link>
-          {/* <Link to='/about/m'>List Movies</Link> */}
         </div>
         <div>
           <Outlet />

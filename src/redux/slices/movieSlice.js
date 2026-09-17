@@ -9,7 +9,7 @@ const initialState = {
 
 export const fetchMovies = createAsyncThunk("movies/fetchMovies", async () => {
   const response = await axios.get(
-    "https://jsonplaceholder.typicode.com/posts",
+    "https://jsonplaceholder.typicode.com/posts1",
   );
 
   return response.data.map(({ id, title }, index) => ({
