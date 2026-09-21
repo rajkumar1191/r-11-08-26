@@ -1,5 +1,5 @@
 const Home = () => {
-  const title = "React Tutorial";
+  const title = import.meta.env.VITE_APP_NAME;
 
   const handleClick = () => {
     console.log("Button clicked");

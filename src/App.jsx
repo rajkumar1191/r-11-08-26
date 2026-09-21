@@ -33,6 +33,7 @@ const AddMovieByReducerCom = lazy(
 );
 
 const App = () => {
+  const api_url = import.meta.env.VITE_API_URL;
   let movies1 = [
     {
       id: 1,
@@ -60,7 +61,7 @@ const App = () => {
   console.log("loading....", loading);
 
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/posts")
+    fetch(`${api_url}/posts`)
       .then((res) => res.json())
       .then((data) => {
         const movies = data.map(({ id, title }) => ({
@@ -76,9 +77,7 @@ const App = () => {
 
   useEffect(() => {
     const loadMovies = async () => {
-      const response = await fetch(
-        "https://jsonplaceholder.typicode.com/posts",
-      );
+      const response = await fetch(`${api_url}/posts`);
       const data = await response.json();
       const movies = data.map(({ id, title }) => ({
         id: id,
