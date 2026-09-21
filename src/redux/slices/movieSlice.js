@@ -9,7 +9,7 @@ const initialState = {
 
 export const fetchMovies = createAsyncThunk("movies/fetchMovies", async () => {
   const api_url = import.meta.env.VITE_API_URL;
-  const response = await axios.get(`${api_url}/posts1`);
+  const response = await axios.get(`${api_url}/posts`);
 
   return response.data.map(({ id, title }, index) => ({
     id,
