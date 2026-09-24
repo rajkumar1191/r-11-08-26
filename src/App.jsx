@@ -23,6 +23,7 @@ import MovieContext from "./context/MovieContext";
 import Login from "./components/Login";
 import Unauthorized from "./components/Unauthorized";
 import RoleProtectedRoute from "./components/RoleProtectedRoute";
+import HooksGuide from "./components/HooksGuide";
 import useMovies from "./hooks/useMovies";
 import { fetchMovies } from "./redux/slices/movieSlice";
 import { useDispatch } from "react-redux";
@@ -154,6 +155,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/unauthorized" element={<Unauthorized />} />
+          <Route path="/hooks" element={<HooksGuide />} />
           <Route
             path="/add-movie"
             element={<AddMovie passData={handleDataFromChild} />}

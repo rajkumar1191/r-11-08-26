@@ -6,6 +6,7 @@ const Nav = () => {
     <>
       <Link to="/">Home</Link>
       <Link to="/about">About</Link>
+      <Link to="/hooks">React Hooks</Link>
       <NavLink to="/add-movie">Add Movie</NavLink>
       <NavLink to="/add-movie/abcdef/1234/raj">Add Movie</NavLink>
       <Link to="/add-movie-by-reducer">Add Movie by Reducer</Link>

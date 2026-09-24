@@ -1,0 +1,176 @@
+.page {
+  min-height: 100vh;
+  color: #273238;
+  background: #f7f4ee;
+  text-align: left;
+}
+
+.hero {
+  padding: 72px clamp(24px, 7vw, 90px) 46px;
+  background: #173f45;
+  color: #f7f4ee;
+}
+
+.eyebrow,
+.groupKicker {
+  margin: 0 0 12px;
+  color: #ef9f76;
+  font: 700 0.73rem/1.2 ui-monospace, SFMono-Regular, Consolas, monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  max-width: 760px;
+  margin: 0;
+  color: #f7f4ee;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(3.3rem, 8vw, 7rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+}
+
+.intro {
+  max-width: 570px;
+  margin: 26px 0 34px;
+  color: #c6d6d1;
+  font-size: 1.05rem;
+}
+
+.searchLabel {
+  display: block;
+  margin-bottom: 8px;
+  color: #c6d6d1;
+  font-size: 0.85rem;
+}
+
+.search {
+  width: min(100%, 560px);
+  box-sizing: border-box;
+  padding: 14px 16px;
+  border: 1px solid #71938c;
+  border-radius: 3px;
+  outline: none;
+  background: #f7f4ee;
+  color: #173f45;
+  font: inherit;
+}
+
+.search:focus {
+  border-color: #ef9f76;
+  box-shadow: 0 0 0 3px rgba(239, 159, 118, 0.25);
+}
+
+.count {
+  margin-top: 14px;
+  color: #9db7b0;
+  font-size: 0.82rem;
+}
+
+.content {
+  padding: 52px clamp(24px, 7vw, 90px) 80px;
+}
+
+.group {
+  display: grid;
+  grid-template-columns: minmax(170px, 0.34fr) 1fr;
+  gap: 28px;
+  padding: 34px 0;
+  border-top: 1px solid #d9d5ca;
+}
+
+.groupHeading h2 {
+  margin: 0 0 10px;
+  color: #173f45;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.8rem;
+  font-weight: 400;
+}
+
+.groupHeading > p:last-child {
+  max-width: 220px;
+  color: #65716f;
+  font-size: 0.9rem;
+}
+
+.hookGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.hookCard {
+  padding: 22px;
+  border: 1px solid #d9d5ca;
+  border-radius: 4px;
+  background: #fffdf8;
+  animation: rise-in 420ms both;
+  animation-delay: calc(var(--card-index) * 50ms);
+}
+
+.cardTopline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.number {
+  color: #ef9f76;
+  font: 700 0.72rem/1 ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+.hookCard h3 {
+  margin: 0;
+  color: #173f45;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 1.05rem;
+}
+
+.when {
+  min-height: 48px;
+  margin: 16px 0;
+  color: #566460;
+  font-size: 0.9rem;
+}
+
+.source {
+  margin: 12px 0 0;
+  color: #9b5e45;
+  font: 0.7rem/1.35 ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+.hookCard pre {
+  min-height: 120px;
+  margin: 0;
+  padding: 14px;
+  overflow-x: auto;
+  border-left: 3px solid #ef9f76;
+  background: #edf1eb;
+  white-space: pre-wrap;
+}
+
+.hookCard code {
+  display: block;
+  padding: 0;
+  background: transparent;
+  color: #344946;
+  font: 0.78rem/1.55 ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+.empty {
+  padding: 60px 0;
+  color: #65716f;
+}
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 760px) {
+  .hero { padding-top: 48px; }
+  .group { grid-template-columns: 1fr; gap: 20px; }
+  .groupHeading > p:last-child { max-width: 520px; }
+  .hookGrid { grid-template-columns: 1fr; }
+}
